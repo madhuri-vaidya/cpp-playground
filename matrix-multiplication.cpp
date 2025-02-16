@@ -12,17 +12,14 @@ This is an attempt to showcase the time difference between doing vector multipli
 
 using namespace std;
 
-// Function to initialize vectors to different values.
-void initializeBigMatrix(vector<vector<float>>& a) {
-
-}
-
-void initializeSmallMatrix(vector<vector<float>>& a){
+// Initialize matrix to random values.
+void initializeMatrix(vector<vector<float>>& a){
     for(int i = 0; i < a.size(); i++) {
         for(int j = 0; j < a[0].size(); j++) { a[i][j] = rand() % 101;}
     }
 }
 
+// Compute matrix multiplication using single thread
 void cpuSingleThread(vector<vector<float>>& a, vector<vector<float>>& b, vector<vector<float>>& c) {
     int row_a = a.size(), col_a = a[0].size(), row_b = b.size(), col_b = b[0].size();
 
@@ -35,6 +32,7 @@ void cpuSingleThread(vector<vector<float>>& a, vector<vector<float>>& b, vector<
     }
 }
 
+// Function called by each thread to compute vector product when using multiple threads
 void cpuMultiThread1(int i, vector<float>& a, vector<vector<float>>& b, vector<vector<float>>& c) {
     int row_b = b.size(), col_b = b[0].size();
 
@@ -48,34 +46,26 @@ void cpuMultiThread1(int i, vector<float>& a, vector<vector<float>>& b, vector<v
 
 int main(int argc, char *argv[]) {
     int row_1, col_1, row_2, col_2;
-    char mat_type = *argv[1];
 
     //for(int i = 0; i < argc; i++) { cout << typeid(*argv[i]).name() << " ";}
     //cout << endl;
 
-    if(mat_type == 's') { 
-        row_1 = stoi(argv[2]);
-        col_1 = stoi(argv[3]);
-        row_2 = stoi(argv[4]);
-        col_2 = stoi(argv[5]); 
-    }
-    
-    else if(mat_type == 'b') {
-        row_1 = stoi(argv[2]);
+    if(argc == 5) { 
+        row_1 = stoi(argv[1]);
         col_1 = stoi(argv[2]);
-        row_2 = stoi(argv[2]);
-        col_2 = stoi(argv[2]);
+        row_2 = stoi(argv[3]);
+        col_2 = stoi(argv[4]); 
     }
 
     else {
-        cout << "Incorrect matrix type. Please input b for big / s for small" << endl;
-        cout << "Usage: ./mat-mul <s/b> <matrix_A rows> <matrix_A columns> <matrix_B rows> <matrix_B columns>" << endl;
+        cout << "Incorrect arguments. Please check again..." << endl;
+        cout << "Usage: ./mat-mul <matrix_A rows> <matrix_A columns> <matrix_B rows> <matrix_B columns>" << endl;
         throw exception();
     }
     
     if(row_1 != col_2) {
-        cout << "Dimension mis-match. Cannot compute vector product..." << endl;
-        cout << "Usage: ./mat-mul <s/b> <matrix_A rows> <matrix_A columns> <matrix_B rows> <matrix_B columns>" << endl;
+        cout << "Dimension mis-match. Cannot compute matrix multiplication. Please check again..." << endl;
+        cout << "Usage: ./mat-mul <matrix_A rows> <matrix_A columns> <matrix_B rows> <matrix_B columns>" << endl;
         throw exception();
     }
 
@@ -85,15 +75,8 @@ int main(int argc, char *argv[]) {
 
     srand(time(NULL));
 
-    if(argv[1] == "small") {
-        initializeSmallMatrix(mat_A);
-        initializeSmallMatrix(mat_B);
-    }
-
-    else if(argv[1] == "big") {
-        initializeBigMatrix(mat_A);
-        initializeBigMatrix(mat_B);
-    }
+    initializeMatrix(mat_A);
+    initializeMatrix(mat_B);
 
     /*cout << "Matrix A is " << endl;
     for(int i = 0; i < mat_A.size(); i++) {
