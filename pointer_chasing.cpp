@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <chrono>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,12 +15,19 @@ struct Node {
 };
 
 // Do some calculation for NUM_NODES required for specified buffer size
-int get_num_nodes() {
+int getNumNodes() {
     return 10;
 }
 
-int main() {
-    int NUM_NODES = get_num_nodes(), lines = 15;
+
+// Do some calculation for array size required for the specified buffer
+int getArraySize() {
+    return 10;
+}
+
+
+void pointerChaseLinkedList(int lines) {
+    int NUM_NODES = getNumNodes();
     vector<Node*> nodes(NUM_NODES);
 
     // Initialise vector
@@ -37,6 +46,42 @@ int main() {
         cout << "i is " << i << " and value at node is " << current->value << endl;
         current = current->next;
     }
+}
+
+
+void pointerChaseArray(int lines) {
+    int array_size = getArraySize();
+    vector<int*> arr{10, nullptr};
+    int* ptr;
+
+    // Initialise the vector. Move this to a separate function in future
+    for(int i = 0; i < array_size - 1; i++) { arr[i] = arr[i + 1]; }
+    arr[array_size - 1] = arr[0];
+
+    // Run pointer chasing for specified lines / time
+    for(int i = 0; i < lines; i++) { ptr = arr[i]; }
+}
+
+
+int main(int argc, char *argv[]) {
+    int buffer;
+    string type;
+
+    if(argc == 3) {
+        type = argv[1];
+        buffer = stoi(argv[2]);
+    }
+
+    else {
+        cout << "Incorrect arguments. Please check again..." << endl;
+        cout << "Usage: ./pointer_chasing <linked_list / array> <buffer_size>" << endl;
+        throw exception();
+    }
+
+    cout << "Input type is " << type << " with buffer " << buffer << endl;
+
+    if(type == "linked_list") { pointerChaseLinkedList(buffer); }
+    else if(type == "array") { pointerChaseArray(buffer); }
 
     return 0;
 }
