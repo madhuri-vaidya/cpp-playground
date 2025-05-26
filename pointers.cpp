@@ -1,12 +1,11 @@
 /*
-Playing around with pointers
-
-Compilation command: g++ ./pointers.cpp -o pointers
-
-Usage:
-  ./pointers.exe <play / array>
-  play: assign and re-assign pointers
-  array: access elements of an array using pointers
+* Playing around with pointers
+* 
+* Compilation command: g++ ./pointers.cpp -o pointers
+* 
+* Usage: ./pointers.exe <play / array>
+*   play: assign and re-assign pointers
+*   array: access elements of an array using pointers
 */
 
 #include <iostream>

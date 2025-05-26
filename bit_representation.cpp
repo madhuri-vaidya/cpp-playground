@@ -1,12 +1,12 @@
 /* 
-Playing around with bit representations
-
-Compilation command: g++ .\bit_representation.cpp -o bit-wise
-
-Usage:
-    Left-Right Shift: ./bit_wise lrShift <decimal_number> <left / right>
-    Decimal to Binary w/ division method: ./bit-wise division <decimal_number>
-    Decimal to Binary w/ bit shift method: ./bit-wise bitShift <decimal_number> <queue / stack>
+* Playing around with bit representations
+* 
+* Compilation command: g++ .\bit_representation.cpp -o bit-wise
+* 
+* Usage:
+*     Left-Right Shift: ./bit_wise lrShift <decimal_number> <left / right>
+*     Decimal to Binary w/ division method: ./bit-wise division <decimal_number>
+*     Decimal to Binary w/ bit shift method: ./bit-wise bitShift <decimal_number> <queue / stack>
 */ 
 
 #include <iostream>
